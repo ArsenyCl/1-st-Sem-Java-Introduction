@@ -11,7 +11,7 @@ public class Sum {
                     while (i<text.length() && !Character.isWhitespace(text.charAt(i))){
                         i++;
                     }
-                    summa += Integer.parseInteger(text.substring(nachalo, i));
+                    summa += Integer.parseInt(text.substring(nachalo, i));
                 }
                 i++;
             }
