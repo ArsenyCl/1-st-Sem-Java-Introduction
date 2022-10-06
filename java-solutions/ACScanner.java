@@ -10,6 +10,7 @@ public class ACScanner {
     private StringBuilder newLine = new StringBuilder(0);
     private StringBuilder newWord = new StringBuilder(0);
     private StringBuilder newDigit = new StringBuilder(0);
+    private StringBuilder newNext = new StringBuilder(0);
 
     private int cbufSize = 4096;
 
@@ -126,6 +127,36 @@ public class ACScanner {
             }
         }  if (!newWord.isEmpty()) {
             return newWord.toString();
+        } else {
+            return null;
+        }
+    }
+    public String next() throws IOException {
+        newNext.setLength(0);
+        while(true) {
+            while (lineIterator < cbufSize && cbuf[0] != 0) {
+                if (!Character.isWhitespace(cbuf[lineIterator]) || (cbuf[lineIterator] == '-' && newNext.isEmpty())) {
+                    newNext.append(cbuf[lineIterator]);
+                    lineIterator++;
+                    while (lineIterator < cbufSize && !Character.isWhitespace(cbuf[lineIterator])) {
+                        newNext.append(cbuf[lineIterator]);
+                        lineIterator++;
+                    }
+                } else if (!newNext.isEmpty()) {
+                    return newNext.toString();
+                } else {
+                    lineIterator++;
+                }
+            }
+            if (cbufSize == bufferSize) {
+                cbufSize = reader.read(cbuf);
+                lineIterator = 0;
+            } else if (lineIterator >= cbufSize) {
+                break;
+            }
+        }
+        if (!newNext.isEmpty()) {
+            return newNext.toString();
         } else {
             return null;
         }
