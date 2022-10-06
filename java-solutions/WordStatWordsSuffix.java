@@ -68,6 +68,12 @@ public class WordStatWordsSuffix {
     }
 
     public static void main(String[] args) {
+//        Map<String, Integer> map = new TreeMap<>();
+//        get; put;
+//        getOrDefault;
+//
+//        put(getOrDefault(key,0) + 1)
+
         try {
             ACScanner scanner = new ACScanner(args[0], StandardCharsets.UTF_8);
             try {

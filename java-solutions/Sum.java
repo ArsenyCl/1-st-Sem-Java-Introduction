@@ -1,26 +1,21 @@
-public class Sum {
-    public static void main(String[] args) {
-        double summa = 0;
-	for (String text: args) {
-            char[] textArray = text.toCharArray();
-            String digit = "";
-            for (char symbol : textArray) {
-                if (symbol = "." | symbol == '0' | symbol == '1' | symbol == '2' | symbol == '3' | symbol == '4' | symbol == '-' |
-                        symbol == '5' | symbol == '6' | symbol == '7' | symbol == '8' | symbol == '9') {
-                    digit = digit + symbol + "";
-                } else {
-                    if (digit.length() > 0) {
-                        summa += Double.parseDouble(digit);
-                        digit = "";
+public class SumDouble {
+    public static void main(String[] args) {;
+        int summa = 0;
+        System.out.println(Character.getType('\u0085'));
+        for (String text : args) {
+            int i = 0;
+            while (i < text.length()) {
+                int nachalo;
+                if (!Character.isWhitespace(text.charAt(i))) {
+                    nachalo = i;
+                    while (i<text.length() && !Character.isWhitespace(text.charAt(i))){
+                        i++;
                     }
+                    summa += Integer.parseInteger(text.substring(nachalo, i));
                 }
-            }
-            if (digit.length() > 0) {
-                summa += Double.parseDouble(digit);
-                digit = "";
+                i++;
             }
         }
         System.out.println(summa);
     }
 }
-	
