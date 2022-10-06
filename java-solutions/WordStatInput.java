@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Map;
 
-public class WordStatWordsSuffix {
+public class WordStatInput {
     private static AC_Pair<String, Integer>[] multPair(AC_Pair<String, Integer>[] a) {
         Map.Entry<Integer, String> test = Map.entry(5, "");
         AC_Pair<String, Integer>[] b = Arrays.copyOf(a, a.length * 2);
