@@ -1,4 +1,4 @@
-public class Sum {
+public class SumDouble {
     public static void main(String[] args) {;
         int summa = 0;
         System.out.println(Character.getType('\u0085'));
@@ -11,7 +11,7 @@ public class Sum {
                     while (i<text.length() && !Character.isWhitespace(text.charAt(i))){
                         i++;
                     }
-                    summa += Integer.parseInt(text.substring(nachalo, i));
+                    summa += Integer.parseInteger(text.substring(nachalo, i));
                 }
                 i++;
             }

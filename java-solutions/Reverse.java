@@ -1,55 +1,84 @@
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.io.IOException;
+
 public class Reverse {
-    private static String[][] multiArray(String[][] a) {
+    private static String[][] multArray(String[][] a) {
         String[][] b = Arrays.copyOf(a, a.length * 2);
         return b;
     }
-    private static String[] multiplyArray(String[] a) {
+
+    private static String[] multStr(String[] a) {
         String[] b = Arrays.copyOf(a, a.length * 2);
         return b;
     }
+
     private static int[] multInt(int[] a) {
         int[] b = Arrays.copyOf(a, a.length * 2);
         return b;
     }
 
-    public static void main (String[] args) throws Exception  {
-        String nextStr;
-        int nextInt;
-        ACScanner text = new ACScanner(System.in);
-        String[][] lines = new String[1][];
-        int[] indexes;
-        indexes = new int[1];
-        int linessize = 0;
-        String textLine;
-        while ((textLine = text.scanNewLine()) != null) {
-            if (linessize == lines.length) {
-                lines = multiArray(lines);
-                indexes = multInt(indexes);
-            }
-            String[] digits = new String[1];
-            int digitssize = 0;
-            int index = 0;
-            ACScanner line = new ACScanner(textLine);
-            while ((nextStr = line.nextDigit()) != null) {
-                if (digitssize == digits.length) {
-                    digits = multiplyArray(digits);
+    public static void main(String[] args) {
+        try {
+            ACScanner text = new ACScanner(System.in);
+            try {
+                String[][] lines = new String[1][];
+                int[] indexes = new int[1];
+                int linesSize = 0;
+                String[] digits = new String[1];
+                int digitsSize = 0;
+                while (text.hasNextDigit()) {
+                    int n = text.hasFoundNewLines;
+                    while(n > 0) {
+                        if (linesSize == lines.length) {
+                            indexes = multInt(indexes);
+                            lines = multArray(lines);
+                        }
+                        indexes[linesSize] = digitsSize;
+                        lines[linesSize] = digits;
+                        linesSize++;
+                        n--;
+                        digits = new String[1];
+                        digitsSize = 0;
+                    }
+                    if (digitsSize == digits.length) {
+                        digits = multStr(digits);
+                    }
+                    digits[digitsSize] = text.nextDigit();
+                    digitsSize++;
                 }
-                digits[digitssize] = nextStr;
-                index++;
-                digitssize++;
+                if (linesSize == lines.length) {
+                    indexes = multInt(indexes);
+                    lines = multArray(lines);
+                }
+                indexes[linesSize] = digitsSize;
+                lines[linesSize] = digits;
+                linesSize++;
+                int n = text.hasFoundNewLines;
+                while (n > 1) {
+                    if (linesSize == lines.length) {
+                        indexes = multInt(indexes);
+                        lines = multArray(lines);
+                    }
+                    lines[linesSize] = new String[1];
+                    indexes[linesSize] = 0;
+                    linesSize++;
+                    n--;
+                }
+                for (int i = linesSize-1; i >= 0; i--) {
+                    for (int j = indexes[i]-1; j >= 0; j--) {
+                        System.out.print(lines[i][j] + " ");
+                    }
+                    System.out.print('\n');
+                }
+            } finally {
+                text.close();
             }
-            indexes[linessize] = index;
-            lines[linessize] = digits;
-            linessize++;
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
         }
-        for (int i = linessize-1; i >= 0; i--) {
-            for (int j = indexes[i]-1; j >= 0; j--) {
-                System.out.print(lines[i][j] + " ");
-            }
-            System.out.println();
-        }
+
     }
 }
 
