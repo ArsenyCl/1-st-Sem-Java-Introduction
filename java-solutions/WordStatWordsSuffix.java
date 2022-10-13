@@ -1,6 +1,7 @@
 import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -75,7 +76,7 @@ public class WordStatWordsSuffix {
 //        put(getOrDefault(key,0) + 1)
 
         try {
-            ACScanner scanner = new ACScanner(args[0], StandardCharsets.UTF_8);
+            ACScanner scanner = new ACScanner(Path.of(args[0]).toFile(), StandardCharsets.UTF_8);
             try {
                 AC_Pair<String, Integer>[] words = new AC_Pair[1];
                 int wordsSize = 0;
