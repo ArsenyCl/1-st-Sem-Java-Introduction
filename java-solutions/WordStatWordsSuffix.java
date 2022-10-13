@@ -2,11 +2,9 @@ import java.io.*;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.Map;
 
 public class WordStatWordsSuffix {
     private static AC_Pair<String, Integer>[] multPair(AC_Pair<String, Integer>[] a) {
-        Map.Entry<Integer, String> test = Map.entry(5, "");
         AC_Pair<String, Integer>[] b = Arrays.copyOf(a, a.length * 2);
         return b;
     }
@@ -75,18 +73,17 @@ public class WordStatWordsSuffix {
 //        put(getOrDefault(key,0) + 1)
 
         try {
-            ACScanner scanner = new ACScanner(args[0], StandardCharsets.UTF_8);
+            ACScanner scanner = new ACScanner(new File(args[0]), StandardCharsets.UTF_8);
             try {
                 AC_Pair<String, Integer>[] words = new AC_Pair[1];
                 int wordsSize = 0;
-                String textLine;
-                while ((textLine = scanner.scanNewLine()) != null)  {
-                    ACScanner line = new ACScanner(textLine);
-                    String word;
-                    while ((word = line.nextWord()) != null)  {
-                        int n = word.length();
-                        if (word.length() > 3) {
-                            word = word.substring(n-3, n);
+                    String word; 
+                    while (scanner.hasNextWord())  {
+                        int n = scanner.nextWord().length();
+                        if (scanner.nextWord().length() > 3) {
+                            word = scanner.nextWord().substring(n-3, n);
+                        } else {
+                            word = scanner.nextWord();
                         }
                         boolean consists = false;
                         for (int j = 0; j < wordsSize; j++) {
@@ -105,7 +102,6 @@ public class WordStatWordsSuffix {
                             wordsSize++;
                         }
                     }
-                }
                 BufferedWriter writer = new BufferedWriter(new FileWriter(args[1], StandardCharsets.UTF_8));
                 try {
                     for (int m = 0; m < wordsSize; m++) {

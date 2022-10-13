@@ -17,14 +17,14 @@ public class ReverseTranspose {
     }
 
     public static void main(String[] args) throws Exception {
-        ACScanner text = new ACScanner(System.in);
+        Scanner text = new Scanner(System.in);
         String nextStr;
         String[][] lines = new String[1][];
         int[] indexes = new int[1];
         int linessize = 0;
         int maxsize = 0;
-        String textLine;
-        while ((textLine = text.scanNewLine()) != null) {
+        while (text.hasNextLine()) {
+            String textLine = text.nextLine();
             if (linessize == lines.length) {
                 lines = multiArray(lines);
                 indexes = multiplyArray(indexes);
@@ -33,11 +33,11 @@ public class ReverseTranspose {
             int digitssize = 0;
             int index = 0;
             ACScanner line = new ACScanner(textLine);
-            while ((nextStr = line.nextDigit()) != null) {
+            while (line.hasNextDigit()) {
                 if (digitssize == digits.length) {
                     digits = multStr(digits);
                 }
-                digits[digitssize] = nextStr;
+                digits[digitssize] = line.nextDigit();
                 index++;
                 digitssize++;
             }

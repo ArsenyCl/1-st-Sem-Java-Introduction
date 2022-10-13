@@ -37,7 +37,7 @@ public class ACScanner {
     public String scanNewLine() throws IOException {
         StringBuilder newLine = new StringBuilder(0);
         while (true) {
-            while (lastIndex < cbufSize && cbuf[0] != 0) {
+            while (lastIndex < cbufSize) {
                 if (cbuf[lastIndex] == '\r') { //r
                     lastIndex++;
                     lastCharIsR = true;
@@ -55,7 +55,7 @@ public class ACScanner {
             if (cbufSize == bufferSize) {
                 cbufSize = reader.read(cbuf);
                 lastIndex = 0;
-            } else if (lastIndex >= cbufSize) {
+            } else if(!newLine.isEmpty()){
                 return newLine.toString();
             }
         }

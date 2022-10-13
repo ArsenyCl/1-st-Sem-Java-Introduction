@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Map;
 
-public class WordStatWordsSuffix {
+public class WordStatInput {
     private static AC_Pair<String, Integer>[] multPair(AC_Pair<String, Integer>[] a) {
         Map.Entry<Integer, String> test = Map.entry(5, "");
         AC_Pair<String, Integer>[] b = Arrays.copyOf(a, a.length * 2);
@@ -75,19 +75,15 @@ public class WordStatWordsSuffix {
 //        put(getOrDefault(key,0) + 1)
 
         try {
-            ACScanner scanner = new ACScanner(args[0], StandardCharsets.UTF_8);
+            ACScanner scanner = new ACScanner(new File(args[0]), StandardCharsets.UTF_8);
+
             try {
                 AC_Pair<String, Integer>[] words = new AC_Pair[1];
                 int wordsSize = 0;
-                String textLine;
-                while ((textLine = scanner.scanNewLine()) != null)  {
-                    ACScanner line = new ACScanner(textLine);
-                    String word;
-                    while ((word = line.nextWord()) != null)  {
-                        int n = word.length();
+                    while ((scanner.hasNextWord()))  {
                         boolean consists = false;
                         for (int j = 0; j < wordsSize; j++) {
-                            if (words[j].getFirst().equals(word.toLowerCase())) {
+                            if (words[j].getFirst().equals(scanner.nextWord().toLowerCase())) {
                                 consists = true;
                                 words[j].setSecond(words[j].getSecond() + 1);
                                 break;
@@ -97,11 +93,10 @@ public class WordStatWordsSuffix {
                             if (wordsSize == words.length) {
                                 words = multPair(words);
                             }
-                            words[wordsSize] = new AC_Pair<>(word.toLowerCase(), 1);
+                            words[wordsSize] = new AC_Pair<>(scanner.nextWord().toLowerCase(), 1);
                             wordsSize++;
                         }
                     }
-                }
                 BufferedWriter writer = new BufferedWriter(new FileWriter(args[1], StandardCharsets.UTF_8));
                 try {
                     for (int m = 0; m < wordsSize; m++) {
