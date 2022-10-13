@@ -66,15 +66,13 @@ public class ACScanner {
     }
 
     private boolean antiCopyPaste(String parametor) {
-        if (parametor.equals("digit")) {
-            return Character.isDigit(cbuf[lineIterator]) || cbuf[lineIterator] == '-';
-        } else if (parametor.equals("word")) {
-            return Character.isLetter(cbuf[lineIterator]) || Character.getType(cbuf[lineIterator]) == Character.DASH_PUNCTUATION || cbuf[lineIterator] == 39;
-        } else if (parametor.equals("next")) {
-            return !Character.isWhitespace(cbuf[lineIterator]);
-        } else {
-            return false;
-        }
+        return switch (parametor) {
+            case "digit" -> Character.isDigit(cbuf[lineIterator]) || cbuf[lineIterator] == '-';
+            case "word" -> Character.isLetter(cbuf[lineIterator]) || Character.getType(cbuf[lineIterator]) == Character.DASH_PUNCTUATION ||
+                cbuf[lineIterator] == 39;
+            case "next" -> !Character.isWhitespace(cbuf[lineIterator]);
+            default -> false;
+        };
     }
 
     public boolean hasNextDigit() throws IOException {
@@ -103,12 +101,9 @@ public class ACScanner {
                 break;
             }
         }
-        if (!newDigit.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return !newDigit.isEmpty();
     }
+
     public String nextWord() throws IOException {
         return newWord.toString();
     }
@@ -139,16 +134,13 @@ public class ACScanner {
                 break;
             }
         }
-        if (!newWord.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return !newWord.isEmpty();
     }
 
     public String next() throws IOException {
         return newNext.toString();
     }
+
     public boolean hasNext() throws IOException {
         newNext.setLength(0);
         hasFoundNewLines = 0;
@@ -175,11 +167,7 @@ public class ACScanner {
                 break;
             }
         }
-        if (!newNext.isEmpty()) {
-            return true;
-        } else {
-            return false;
-        }
+        return !newNext.isEmpty();
     }
     private boolean privateFoundNewLine(char symbol) {
         if (symbol == '\r') {
