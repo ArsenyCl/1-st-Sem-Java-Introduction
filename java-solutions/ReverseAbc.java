@@ -21,10 +21,10 @@ public class ReverseAbc {
         try {
             ACScanner text = new ACScanner(System.in);
             try {
-                String[][] lines = new String[1][];
+                String[][] lines = new String[1][]; // :NOTE: можно и нужно ArrayList
                 int[] indexes = new int[1];
                 int linesSize = 0;
-                String[] digits = new String[1];
+                String[] digits = new String[1]; // :NOTE: тоже ArrayList
                 int digitsSize = 0;
                 while (text.hasNext()) {
                     int n = text.hasFoundNewLines;
@@ -76,7 +76,6 @@ public class ReverseAbc {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-
     }
 }
 
