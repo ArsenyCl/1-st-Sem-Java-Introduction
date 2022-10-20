@@ -14,4 +14,11 @@ public class Strikeout implements ACMarkup {
         }
         textbuilder.append("~");
     }
+    public void toTex(StringBuilder textbuild) {
+        textbuild.append("\\textst{");
+        for (ACMarkup each : field) {
+            each.toTex(textbuild);
+        }
+        textbuild.append("}");
+    }
 }

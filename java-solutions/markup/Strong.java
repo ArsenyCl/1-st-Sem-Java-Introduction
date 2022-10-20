@@ -14,4 +14,13 @@ public class Strong implements ACMarkup {
         }
         textbuilder.append("__");
     }
+    public void toTex(StringBuilder textbuild) {
+        textbuild.append("\\textbf{");
+        for (ACMarkup each : field) {
+            each.toTex(textbuild);
+        }
+        textbuild.append("}");
+    }
+
+
 }

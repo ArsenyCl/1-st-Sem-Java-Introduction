@@ -13,5 +13,9 @@ public class Paragraph implements ACMarkup {
             each.toMarkdown(textBuilder);
         }
     }
-
+    public void toTex(StringBuilder textBuild) {
+        for (ACMarkup each : field) {
+            each.toTex(textBuild);
+        }
+    }
 }

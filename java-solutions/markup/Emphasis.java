@@ -17,4 +17,11 @@ public class Emphasis implements ACMarkup {
         }
         textBuilder.append("*");
     }
+    public void toTex(StringBuilder textBuild) {
+        textBuild.append("\\emph{");
+        for (ACMarkup each : field) {
+            each.toTex(textBuild);
+        }
+        textBuild.append("}");
+    }
 }
