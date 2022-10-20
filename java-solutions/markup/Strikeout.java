@@ -2,23 +2,11 @@ package markup;
 
 import java.util.List;
 import java.util.ArrayList;
-public class Strikeout implements ACMarkup {
-    private final List<ACMarkup> field;
+public class Strikeout extends Markdown {
     public Strikeout(List<ACMarkup> in) {
+        super(in);
+        super.mark = "~";
+        super.texMark = "\\textst{";
         field = new ArrayList(in);
-    }
-    public void toMarkdown(StringBuilder textbuilder) {
-        textbuilder.append("~");
-        for (ACMarkup each : field) {
-            each.toMarkdown(textbuilder);
-        }
-        textbuilder.append("~");
-    }
-    public void toTex(StringBuilder textbuild) {
-        textbuild.append("\\textst{");
-        for (ACMarkup each : field) {
-            each.toTex(textbuild);
-        }
-        textbuild.append("}");
     }
 }

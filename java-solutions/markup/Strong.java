@@ -2,24 +2,12 @@ package markup;
 
 import java.util.List;
 import java.util.ArrayList;
-public class Strong implements ACMarkup {
-    private final List<ACMarkup> field;
+public class Strong extends Markdown {
     public Strong(List<ACMarkup> in) {
+        super(in);
+        super.mark = "__";
+        super.texMark = "\\textbf{";
         field = new ArrayList(in);
-    }
-    public void toMarkdown(StringBuilder textbuilder) {
-        textbuilder.append("__");
-        for (ACMarkup each : field) {
-            each.toMarkdown(textbuilder);
-        }
-        textbuilder.append("__");
-    }
-    public void toTex(StringBuilder textbuild) {
-        textbuild.append("\\textbf{");
-        for (ACMarkup each : field) {
-            each.toTex(textbuild);
-        }
-        textbuild.append("}");
     }
 
 
