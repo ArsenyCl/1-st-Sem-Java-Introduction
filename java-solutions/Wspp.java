@@ -16,6 +16,7 @@ public class Wspp {
                 ArrayList<String> order = new ArrayList<>();
                 while (text.hasNextWord()) {
                     String word = text.nextWord().toLowerCase();
+                    // :NOTE: не оптимально использование map (слишком много обращений) почитайте про getOrDefault putIfAbsent и тд
                     if (words.containsKey(word)) {
                         int count = words.get(word).get(0);
                         words.get(word).append(index);
