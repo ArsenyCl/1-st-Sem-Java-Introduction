@@ -1,8 +1,7 @@
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.io.File;
 import java.io.BufferedWriter;
 
@@ -16,15 +15,9 @@ public class Wspp {
                 ArrayList<String> order = new ArrayList<>();
                 while (text.hasNextWord()) {
                     String word = text.nextWord().toLowerCase();
-                    // :NOTE: не оптимально использование map (слишком много обращений) почитайте про getOrDefault putIfAbsent и тд
-                    if (words.containsKey(word)) {
-                        int count = words.get(word).get(0);
-                        words.get(word).append(index);
-                        words.get(text.nextWord().toLowerCase()).set(0, count + 1);
-                    } else {
-                        words.put(word, new IntArray(2));
-                        words.get(word).append(1);
-                        words.get(word).append(index);
+                    words.putIfAbsent(word, new IntArray(1));
+                    words.get(word).append(index);
+                    if (words.get(word).size() == 1) {
                         order.add(word);
                     }
                     index++;
@@ -32,7 +25,7 @@ public class Wspp {
                 BufferedWriter writer = new BufferedWriter(new FileWriter(args[1], StandardCharsets.UTF_8));
                 try {
                     for (String word: order) {
-                        writer.write(word);
+                        writer.write(word + " " + words.get(word).size());
                         for (int i = 0; i < words.get(word).size(); i++) {
                             writer.write(" " + words.get(word).get(i));
                         }
