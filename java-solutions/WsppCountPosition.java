@@ -3,7 +3,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WsppCountPosition {
     private static List<Map.Entry<String, IntArray>> sortWords(HashMap<String, IntArray> words) {
@@ -20,6 +23,7 @@ public class WsppCountPosition {
             }
         }).toList();
     }
+
     public static void main(String[] args) {
         try {
             ACScanner text = new ACScanner(new File(args[0]), StandardCharsets.UTF_8);
@@ -29,23 +33,24 @@ public class WsppCountPosition {
                 int line = 1;
                 while (text.hasNextWord()) {
                     if (text.hasFoundNewLines > 0) {
-                        line+= text.hasFoundNewLines;
+                        line += text.hasFoundNewLines;
                         index = 1;
                     }
                     String word = text.nextWord().toLowerCase();
                     words.putIfAbsent(word, new IntArray(2));
-                    words.get(word).append(line);
-                    words.get(word).append(index);
+                    IntArray tmp = words.get(word);
+                    tmp.append(line);
+                    tmp.append(index);
                     index++;
-                    }
+                }
                 BufferedWriter writer = new BufferedWriter(new FileWriter(args[1], StandardCharsets.UTF_8));
                 try {
                     List<Map.Entry<String, IntArray>> sortedWords = sortWords(words);
-                    for (Map.Entry<String, IntArray> pair: sortedWords) {
+                    for (Map.Entry<String, IntArray> pair : sortedWords) {
                         writer.write(pair.getKey());
-                        writer.write(" " + pair.getValue().size()/2);
-                        for (int i = 0; i < pair.getValue().size(); i+=2) {
-                            writer.write(" " + pair.getValue().get(i) + ":" + pair.getValue().get(i+1));
+                        writer.write(" " + pair.getValue().size() / 2);
+                        for (int i = 0; i < pair.getValue().size(); i += 2) {
+                            writer.write(" " + pair.getValue().get(i) + ":" + pair.getValue().get(i + 1));
                         }
                         writer.newLine();
                     }
@@ -55,7 +60,7 @@ public class WsppCountPosition {
             } finally {
                 text.close();
             }
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
         }
     }
