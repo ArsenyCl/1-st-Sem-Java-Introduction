@@ -10,6 +10,7 @@ public class Md2Html {
     private static int emZv = -1;
     private static int emPod = -1;
     private static int s = -1;
+    private static int u = -1;
     private static int code = -1;
     private static void checkSymb(String in, ArrayList<String> list) {
         if (in.equals("**")) {
@@ -55,10 +56,19 @@ public class Md2Html {
         } else if(in.equals("`")) {
             if (code > -1) {
                 list.set(code, "<code>");
-                list.set(list.size()-1, "</code>");
+                list.set(list.size() - 1, "</code>");
                 code = -1;
             } else {
-                code = list.size()-1;
+                code = list.size() - 1;
+            }
+        } else if(in.equals("++")){
+
+            if (u > -1) {
+                list.set(u, "<u>");
+                list.set(list.size() - 1, "</u>");
+                u = -1;
+            } else {
+                u = list.size() - 1;
             }
         } else if (in.equals("<")) {
             list.set(list.size()-1, "&lt;");
@@ -70,6 +80,10 @@ public class Md2Html {
             list.set(list.size()-1, "*");
         } else if (in.equals("\\_")) {
             list.set(list.size() - 1, "_");
+        } else if(in.equals("\\++")) {
+            list.set(list.size() - 1, "++");
+        } else if(in.equals("\\+")) {
+            list.set(list.size() - 1, "+");
         }
     }
     public static void main(String[] args) {

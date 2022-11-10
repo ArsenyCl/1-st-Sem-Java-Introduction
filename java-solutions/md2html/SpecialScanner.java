@@ -31,7 +31,7 @@ public class SpecialScanner {
         if (parametor.equals("Sp")) {
             return (cbuf[lineIterator] == '*' || cbuf[lineIterator] == '-' || cbuf[lineIterator] == '_'
                     || cbuf[lineIterator] == '`' || cbuf[lineIterator] == '#' || cbuf[lineIterator] == '<'
-                    || cbuf[lineIterator] == '>' || cbuf[lineIterator] == '&' || cbuf[lineIterator] == '\\');
+                    || cbuf[lineIterator] == '>' || cbuf[lineIterator] == '&' || cbuf[lineIterator] == '\\'|| cbuf[lineIterator] == '+');
         } else if(parametor.equals("newLine")) {
             return cbuf[lineIterator] == '\r' || cbuf[lineIterator] == '\n';
         } else {
