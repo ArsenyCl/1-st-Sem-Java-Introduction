@@ -20,6 +20,43 @@ public class BoardMNK {
             return 1;
         }
     }
+    private static int checkMove(Move move, boolean toL, boolean toR, boolean toT, boolean  toD) {
+        int r = move.getRow();
+        int c = move.getCol();
+        int count = -1;
+        while(r >= 0 && c >= 0 && r < board.getN() && c < board.getM() && board.getBrd()[r][c] == move.getCell()) {
+
+            count++;
+            if (toR) {
+                r++;
+            } else if(toL) {
+                r--;
+            }
+            if (toT) {
+                c--;
+            } else if(toD){
+                c++;
+            }
+
+        }
+        r = move.getRow();
+        c = move.getCol();
+        while(r >= 0 && c >= 0 && r < board.getN() && c < board.getM() && board.getBrd()[r][c] == move.getCell()) {
+            count++;
+            if(toR) {
+                r--;
+            } else if(toL) {
+                r++;
+            }
+            if (toT) {
+                c++;
+            } else if(toD){
+                c--;
+            }
+        }
+        return count;
+
+    }
     public static Result makeMove(Move move) {
         if (isValid(move) < 0) {
             return Result.LOSE;
@@ -30,85 +67,23 @@ public class BoardMNK {
         int[] strikes = new int[4];
         int r = move.getRow();//check Verical
         int c = move.getCol();
-        while(r < board.getN() && board.getBrd()[r][c] == move.getCell()) {
-            count++;
-            r++;
-        }
-        r = move.getRow();
-        c = move.getCol();
-        while(r >= 0  && board.getBrd()[r][c] == move.getCell()) {
-            count++;
-            r--;
-        }
-        strikes[0] = count;
-        if (count >= board.getK()) {
-            return Result.WIN;
-        }
+        strikes[0] = checkMove(move, true, false, false, false);
+        strikes[1] = checkMove(move, false, true, false, false);
+        strikes[2] = checkMove(move, true, false, true, false);
+        strikes[3] = checkMove(move, true, false, false, true);
+        for (int i = 0; i < 4; i++) {
+            if (strikes[i] >= board.getK()) {
+                return Result.WIN;
 
-        count = -1;
-        r = move.getRow();//check Horizontal
-        c = move.getCol();
-        while(c < board.getM() && board.getBrd()[r][c] == move.getCell()) {
-            count++;
-            c++;
+            }
         }
-        r = move.getRow();
-        c = move.getCol();
-        while(c >= 0  && board.getBrd()[r][c] == move.getCell()) {
-            count++;
-            c--;
-        }
-        strikes[1] = count;
-        if (count >= board.getK()) {
-            return Result.WIN;
-        }
-
-        count = -1;
-        r = move.getRow();//check Diagonal from left bottom to right top
-        c = move.getCol();
-        while(r >= 0 && c < board.getM() && board.getBrd()[r][c] == move.getCell()) {
-            count++;
-            r--;
-            c++;
-        }
-        r = move.getRow();
-        c = move.getCol();
-        while(r < board.getN()  && c >= 0  && board.getBrd()[r][c] == move.getCell()) {
-            count++;
-            r++;
-            c--;
-        }
-        strikes[2] = count;
-        if (count >= board.getK()) {
-            return Result.WIN;
-        }
-
-        count = -1;
-        r = move.getRow();//check Diagonal from right bottom to left top
-        c = move.getCol();
-        while(r < board.getN() && c < board.getM() && board.getBrd()[r][c] == move.getCell()) {
-            count++;
-            r++;
-            c++;
-        }
-        r = move.getRow();
-        c = move.getCol();
-        while(r >= 0 && c >= 0  && board.getBrd()[r][c] == move.getCell()) {
-            count++;
-            r--;
-            c--;
-        }
-        strikes[3] = count;
-        if (count >= board.getK()) {
-            return Result.WIN;
+        if (board.getEmptyCells() == 0) {
+            return Result.DRAW;
         }
         for (int i = 0; i < 4; i++) {
             if (strikes[i] >= 4) {
                 return Result.STRIKE;
             }
-        }
-        if (board.getEmptyCells() == 0) {
-            return Result.DRAW;
         }
         return Result.UNKNOWN;
     }

@@ -13,6 +13,9 @@ public class HumanPlayer implements Player {
         main: while (attempts > 0) {
             out.println(output);
             String check = in.nextLine();
+            if (check.isEmpty()) {
+                continue;
+            }
             if (!check.equals("Give up")) {
                 for (int i = 0; i < check.length(); i++) {
                     if (!Character.isDigit(check.charAt(i))) {

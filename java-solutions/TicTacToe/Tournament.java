@@ -30,8 +30,10 @@ public class Tournament {
                 Game game = new Game((ArrayList<PlayerInfo>) players.clone());
                 BoardMNK board = boardSettings();
                 int gameRes = game.play(board);
-                gamesWon[gameRes]++;
-                max = Math.max(gamesWon[gameRes], max);
+                if (gameRes > -1) {
+                    gamesWon[gameRes]++;
+                    max = Math.max(gamesWon[gameRes], max);
+                }
                 i++;
                 out.println("Score: ");
                 for (int j = 0; j < players.size(); j++) {

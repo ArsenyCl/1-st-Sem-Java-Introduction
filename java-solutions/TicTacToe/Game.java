@@ -58,20 +58,25 @@ public class Game {
         }
     }
     public int move(final BoardMNK board, final PlayerInfo player) {
-        Move move = player.getPlayer().move(board.getBoard(), player.getCell(), player.getName());
-        Result result = BoardMNK.makeMove(move);
-        if (result == Result.WIN) {
-            return 2;
-        }
-        if (result == Result.DRAW) {
-            return 0;
-        }
-        if (result == Result.LOSE) {
+        try {
+            Move move = player.getPlayer().move(board.getBoard(), player.getCell(), player.getName());
+            Result result = BoardMNK.makeMove(move);
+            if (result == Result.WIN) {
+                return 2;
+            }
+            if (result == Result.DRAW) {
+                return 0;
+            }
+            if (result == Result.LOSE) {
+                return -1;
+            }
+            if (result == Result.STRIKE) {
+                return 3;
+            }
+            return 1;
+        } catch (RuntimeException e) {
             return -1;
         }
-        if (result == Result.STRIKE) {
-            return 3;
-        }
-        return 1;
+
     }
 }
