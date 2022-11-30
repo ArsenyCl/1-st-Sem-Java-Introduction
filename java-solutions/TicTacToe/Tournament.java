@@ -1,5 +1,6 @@
 package TicTacToe;
 
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.*;
 
@@ -68,11 +69,8 @@ public class Tournament {
     private PlayerInfo playerSettings(int i) {
         Player player;
         while (true) {
-            out.println("Player №" + i + " type: ");
-            out.println("1 - Real person");
-            out.println("2 - Random-move bot");
-            out.println("3 - Sequential-move bot");
-            String typeCheck = in.nextLine();
+            out.println("Player №" + i + " type:");
+            String typeCheck = strInput("Player №" + i + " type:" + "\n" + "1 - Real person" + "\n" + "2 - Random-move bot" + "\n" + "3 - Sequential-move bot");
             if (typeCheck.equals("1")) {
                 player = new HumanPlayer();
                 break;
@@ -82,13 +80,15 @@ public class Tournament {
             } else if (typeCheck.equals("3")) {
                 player = new SequentialPlayer();
                 break;
+            } else if (typeCheck.equals("4")) {
+                player = new NullPlayer();
+                break;
             }
             out.println("Invalid input! Try again");
             out.println();
         }
         out.println("Player type accepted.");
-        out.println("Player №" + i + " name: ");
-        String name = in.nextLine();
+        String name = strInput("Player №" + i + " name: ");
         out.println("Player name accepted.");
         while (true) {
             out.println("Player №" + i + " cell: ");
@@ -119,17 +119,34 @@ public class Tournament {
         return new BoardMNK(cols, rows, k);
     }
     private static int intInput(String output) {
-        main: while (true) {
-            out.println(output);
-            String check = in.nextLine();
-            for (int i = 0; i < check.length(); i++) {
-                if (!Character.isDigit(check.charAt(i))) {
-                    out.println("Invalid input! Try again");
-                    out.println();
-                    continue main;
-                }
+        int check;
+        while (true) {
+            try {
+                out.println(output);
+                check = in.nextInt();
+                break;
+            } catch (RuntimeException e) {
+                out.println("Invalid input! Try again");
+                out.println();
+                System.exit(0);
             }
-            return Integer.parseInt(check);
         }
+        return check;
+    }
+    private static String strInput(String output) {
+        String check;
+        while (true) {
+            try {
+                out.println(output);
+                check = in.nextLine();
+                break;
+            } catch (RuntimeException e) {
+                out.println("Invalid input! Try again");
+                out.println();
+                System.exit(0);
+            }
+        }
+        return check;
+
     }
 }

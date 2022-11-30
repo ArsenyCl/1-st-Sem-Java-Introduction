@@ -14,9 +14,6 @@ public class RandomPlayer implements Player {
     public RandomPlayer() {
         this(new Random());
     }
-    public String getIdentity() {
-        return "RandomPlayer";
-    }
     @Override
     public Move move(final Board board, Cell cell, String name) {
         while (true) {

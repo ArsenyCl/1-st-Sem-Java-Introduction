@@ -20,39 +20,23 @@ public class BoardMNK {
             return 1;
         }
     }
-    private static int checkMove(Move move, boolean toL, boolean toR, boolean toT, boolean  toD) {
+    private static int checkMove(Move move, int right, int up, int down) {
         int r = move.getRow();
         int c = move.getCol();
         int count = -1;
         while(r >= 0 && c >= 0 && r < board.getN() && c < board.getM() && board.getBrd()[r][c] == move.getCell()) {
-
             count++;
-            if (toR) {
-                r++;
-            } else if(toL) {
-                r--;
-            }
-            if (toT) {
-                c--;
-            } else if(toD){
-                c++;
-            }
-
+            r += right;
+            c += up;
+            c -= down;
         }
         r = move.getRow();
         c = move.getCol();
         while(r >= 0 && c >= 0 && r < board.getN() && c < board.getM() && board.getBrd()[r][c] == move.getCell()) {
             count++;
-            if(toR) {
-                r--;
-            } else if(toL) {
-                r++;
-            }
-            if (toT) {
-                c++;
-            } else if(toD){
-                c--;
-            }
+            r -= right;
+            c -= up;
+            c += down;
         }
         return count;
 
@@ -63,18 +47,14 @@ public class BoardMNK {
         }
         board.setCell(move);
         board.decreaseEmptyCells();
-        int count = -1;
         int[] strikes = new int[4];
-        int r = move.getRow();//check Verical
-        int c = move.getCol();
-        strikes[0] = checkMove(move, true, false, false, false);
-        strikes[1] = checkMove(move, false, true, false, false);
-        strikes[2] = checkMove(move, true, false, true, false);
-        strikes[3] = checkMove(move, true, false, false, true);
+        strikes[0] = checkMove(move, 1,  0, 0);
+        strikes[1] = checkMove(move, 0, 1, 0);
+        strikes[2] = checkMove(move, 1,  1, 0);
+        strikes[3] = checkMove(move, 1, 0, 1);
         for (int i = 0; i < 4; i++) {
             if (strikes[i] >= board.getK()) {
                 return Result.WIN;
-
             }
         }
         if (board.getEmptyCells() == 0) {
