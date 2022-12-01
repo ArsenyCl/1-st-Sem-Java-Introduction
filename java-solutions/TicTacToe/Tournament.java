@@ -119,34 +119,23 @@ public class Tournament {
         return new BoardMNK(cols, rows, k);
     }
     private static int intInput(String output) {
-        int check;
-        while (true) {
-            try {
-                out.println(output);
-                check = in.nextInt();
-                break;
-            } catch (RuntimeException e) {
-                out.println("Invalid input! Try again");
-                out.println();
-                System.exit(0);
-            }
+        try {
+            out.println(output);
+            return in.nextInt();
+        } catch (RuntimeException e) {
+            out.println("Invalid input! Try again");
+            out.println();
+            return -1;
         }
-        return check;
     }
     private static String strInput(String output) {
-        String check;
-        while (true) {
             try {
                 out.println(output);
-                check = in.nextLine();
-                break;
+                return in.nextLine();
             } catch (RuntimeException e) {
                 out.println("Invalid input! Try again");
                 out.println();
-                System.exit(0);
+                return null;
             }
-        }
-        return check;
-
     }
 }
