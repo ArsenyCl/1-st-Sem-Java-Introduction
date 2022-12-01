@@ -11,6 +11,10 @@ public abstract class BinaryOperations implements Express {
         this.second = second;
     }
     @Override
+    public int evaluate(int variable) {
+        return this.evaluate(variable, 0, 0);
+    }
+    @Override
     public String toString() {
         return "(" + first.toString() +
                 " " + operation + " " +

@@ -9,8 +9,8 @@ public class Variable implements Express {
     }
 
     @Override
-    public int evaluate(int variavle) {
-        return variavle;
+    public int evaluate(int variable) {
+        return variable;
     }
 
     @Override

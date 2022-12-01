@@ -6,10 +6,6 @@ public class Add extends BinaryOperations {
         super.operation = "+";
     }
     @Override
-    public int evaluate(int variable) {
-        return super.first.evaluate(variable) + super.second.evaluate(variable);
-    }
-    @Override
     public double evaluate(double variable) {
         return super.first.evaluate(variable) + super.second.evaluate(variable);
     }
