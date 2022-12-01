@@ -2,11 +2,11 @@ package expression;
 
 import java.util.Objects;
 
-public abstract class BinaryOperations implements Expression {
-    Expression first;
-    Expression second;
+public abstract class BinaryOperations implements Express {
+    Express first;
+    Express second;
     String operation;
-    public BinaryOperations(Expression first, Expression second) {
+    public BinaryOperations(Express first, Express second) {
         this.first = first;
         this.second = second;
     }
@@ -26,14 +26,14 @@ public abstract class BinaryOperations implements Expression {
     public int hashCode() {
         return (((operation.hashCode() * 13) + first.hashCode() * 29) + second.hashCode() * 43);
     }
-    public static  String antiCopyPasteFirst(Expression expression) {
+    public static  String antiCopyPasteFirst(Express expression) {
         if (!(expression instanceof BinaryOperations) || expression instanceof Multiply || expression instanceof Divide) {
             return expression.toMiniString();
         } else {
             return "(" + expression.toMiniString() + ")";
         }
     }
-    public static  String antiCopyPasteSecond(Expression expression, BinaryOperations operation) {
+    public static  String antiCopyPasteSecond(Express expression, BinaryOperations operation) {
         if (!(expression instanceof BinaryOperations)  || (expression instanceof Multiply && !(operation instanceof Divide))) {
             return expression.toMiniString();
         } else {
