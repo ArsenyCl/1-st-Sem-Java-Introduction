@@ -3,17 +3,32 @@ package expression;
 import java.util.Objects;
 
 public abstract class BinaryOperations implements Express {
-    Express first;
-    Express second;
-    String operation;
-    public BinaryOperations(Express first, Express second) {
+    protected Express first;
+    protected Express second;
+    protected String operation;
+    protected boolean assoc;
+    protected boolean rightAssoc;
+    protected int  priority;
+    public BinaryOperations(Express first, Express second,String operation, boolean assoc, boolean rightAssoc, int priority) {
         this.first = first;
         this.second = second;
+        this.operation = operation;
+        this.assoc = assoc;
+        this.rightAssoc = rightAssoc;
+        this.priority = priority;
+    }
+    public int func(int a, int b) {
+        return 0;
     }
     @Override
     public int evaluate(int variable) {
-        return this.evaluate(variable, 0, 0);
+        return this.func(first.evaluate(variable, 0, 0), second.evaluate(variable, 0, 0));
     }
+    @Override
+    public int evaluate(int x, int y, int z) {
+        return this.func(first.evaluate(x, y, z), second.evaluate(x, y, z));
+    }
+
     @Override
     public String toString() {
         return "(" + first.toString() +
@@ -30,39 +45,33 @@ public abstract class BinaryOperations implements Express {
     public int hashCode() {
         return (((operation.hashCode() * 13) + first.hashCode() * 29) + second.hashCode() * 43);
     }
-    public static  String antiCopyPasteFirst(Express expression) {
-        if (!(expression instanceof BinaryOperations) || expression instanceof Multiply || expression instanceof Divide) {
-            return expression.toMiniString();
-        } else {
-            return "(" + expression.toMiniString() + ")";
-        }
+    @Override
+    public int getPriority() {
+        return priority;
     }
-    public static  String antiCopyPasteSecond(Express expression, BinaryOperations operation) {
-        if (!(expression instanceof BinaryOperations)  || (expression instanceof Multiply && !(operation instanceof Divide))) {
-            return expression.toMiniString();
-        } else {
-            return "(" + expression.toMiniString() + ")";
-        }
+    @Override
+    public boolean getAssoc() {
+        return assoc;
+    }
+    @Override
+    public boolean getRightAssoc() {
+        return rightAssoc;
     }
     @Override
     public String toMiniString() {
-        if (this instanceof Multiply) {
-            return antiCopyPasteFirst(first) +
-                    " " + operation + " " +
-                    antiCopyPasteSecond(second, this);
+        StringBuilder ans = new StringBuilder();
+        if (this.getPriority() <= first.getPriority()) {
+            ans.append(first.toMiniString());
+        } else {
+            ans.append("(").append(first.toMiniString()).append(")");
         }
-        if (this instanceof Divide) {
-            return  antiCopyPasteFirst(first) +
-                    " " + operation + " " +
-                    antiCopyPasteSecond(second, this);
+        ans.append(" ").append(this.operation).append(" ");
+        if (this.getPriority() < second.getPriority() ||
+                (this.assoc && second.getRightAssoc() && this.getPriority() <= second.getPriority())) {
+            ans.append(second.toMiniString());
+        } else {
+            ans.append("(").append(second.toMiniString()).append(")");
         }
-        if (this instanceof Subtract && (second instanceof Add || second instanceof Subtract)) {
-            return first.toMiniString() +
-                    " " + operation + " (" +
-                    second.toMiniString() + ")";
-        }
-        return  first.toMiniString() +
-                " " + operation + " " +
-                second.toMiniString();
+        return ans.toString();
     }
 }

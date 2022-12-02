@@ -1,23 +1,25 @@
 package expression;
 public class Const implements Express {
-    private int valueInt;
-    private double valueDouble;
-    private final boolean intConst;
+    private final int valueInt;
     public Const(int value) {
-        this.intConst = true;
         this.valueInt = value;
     }
-    public Const(double value) {
-        this.intConst = false;
-        this.valueDouble = value;
+    @Override
+    public int getPriority() {
+        return 2;
     }
+    @Override
+    public boolean getAssoc() {
+        return true;
+    }
+    @Override
+    public boolean getRightAssoc() {
+        return true;
+    }
+
     @Override
     public int evaluate(int variable) {
         return valueInt;
-    }
-    @Override
-    public double evaluate(double variable) {
-        return valueDouble;
     }
     @Override
     public int evaluate(int var1, int var2, int var3) {
@@ -25,19 +27,15 @@ public class Const implements Express {
     }
     @Override
     public String toString() {
-        return  intConst ?  String.valueOf(valueInt) : String.valueOf(valueDouble);
+        return String.valueOf(valueInt);
     }
     @Override
     public boolean equals(Object o) {
         if (o == null ||  getClass() != o.getClass()) return false;
         Const that = (Const) o;
-        if (this.intConst && that.intConst) {
-            return this.valueInt == that.valueInt;
-        } else {
-            return this.valueDouble == that.valueDouble;
-        }
+        return this.valueInt == that.valueInt;
     }
     public int hashCode() {
-        return this.intConst ? valueInt : Double.hashCode(valueDouble);
+        return this.valueInt;
     }
 }

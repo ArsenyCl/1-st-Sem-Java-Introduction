@@ -12,7 +12,14 @@ public class Variable implements Express {
     public int evaluate(int variable) {
         return variable;
     }
-
+    @Override
+    public boolean getAssoc() {
+        return true;
+    }
+    @Override
+    public boolean getRightAssoc() {
+        return true;
+    }
     @Override
     public int evaluate(int var1, int var2, int var3) {
         if (valueString.equals("x")) {
@@ -24,10 +31,6 @@ public class Variable implements Express {
         }
     }
     @Override
-    public double evaluate(double variable) {
-        return variable;
-    }
-    @Override
     public String toString() {
         return valueString;
     }
@@ -37,6 +40,12 @@ public class Variable implements Express {
         Variable that = (Variable) o;
         return Objects.equals(this.valueString, that.valueString);
     }
+
+    @Override
+    public int getPriority() {
+        return 2;
+    }
+
     @Override
     public int hashCode() {
         return valueString.hashCode();
