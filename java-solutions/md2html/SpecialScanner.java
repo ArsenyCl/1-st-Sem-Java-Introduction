@@ -1,6 +1,5 @@
 package md2html;
 
-//#, '
 
 import java.io.*;
 import java.nio.charset.Charset;
@@ -50,6 +49,7 @@ public class SpecialScanner {
         char symChar = '0';
         skipLines= false;
         lastCharIsN = false;
+        lastCharIsR = false;
         while (true) {
             while (lineIterator < cbufSize) {
                 if (!newLineCount && !special && !antiCopyPaste("Sp") && !antiCopyPaste("newLine")) {
@@ -96,12 +96,20 @@ public class SpecialScanner {
     private boolean foundDoubleLine(char symbol) {
         if (lastCharIsN && (symbol == '\n' ||symbol == '\r')) {
             lastCharIsN = false;
+            lastCharIsR = false;
             return true;
-        } else if (symbol == '\n'){
+        } else if(lastCharIsR && symbol == '\r') {
+            lastCharIsR = false;
+            return true;
+        } else if (symbol == '\n') {
             lastCharIsN = true;
+            return false;
+        } else if (symbol == '\r') {
+            lastCharIsR = true;
             return false;
         }
         lastCharIsN = false;
+        lastCharIsR = false;
         return false;
     }
     public void close() throws IOException {
