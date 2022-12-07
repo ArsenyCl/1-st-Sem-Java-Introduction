@@ -1,7 +1,6 @@
 public class Sum {
     public static void main(String[] args) {;
         int summa = 0;
-        System.out.println(Character.getType('\u0085'));
         for (String text : args) {
             int i = 0;
             while (i < text.length()) {
