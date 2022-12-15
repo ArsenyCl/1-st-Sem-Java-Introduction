@@ -55,10 +55,9 @@ public abstract class UnaryOperations implements Express {
     }
     @Override
     public String toMiniString() {
-        if (first instanceof BinaryOperations) {
+        if (first.getPriority() < this.getPriority()) {
             return operation + "(" + first.toMiniString() + ")";
-        } else {
-            return operation + " " +first.toMiniString();
         }
+        return operation + " " +first.toMiniString();
     }
 }

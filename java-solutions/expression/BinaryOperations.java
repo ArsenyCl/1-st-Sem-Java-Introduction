@@ -57,21 +57,14 @@ public abstract class BinaryOperations implements Express {
     public boolean getRightAssoc() {
         return rightAssoc;
     }
+    private String skobochki(boolean neSkobki, String str) {
+        return neSkobki ?  str : "(" + str + ")";
+    }
     @Override
     public String toMiniString() {
-        StringBuilder ans = new StringBuilder();
-        if (this.getPriority() <= first.getPriority()) {
-            ans.append(first.toMiniString());
-        } else {
-            ans.append("(").append(first.toMiniString()).append(")");
-        }
-        ans.append(" ").append(this.operation).append(" ");
-        if (this.getPriority() < second.getPriority() ||
-                (this.assoc && second.getRightAssoc() && this.getPriority() <= second.getPriority())) {
-            ans.append(second.toMiniString());
-        } else {
-            ans.append("(").append(second.toMiniString()).append(")");
-        }
-        return ans.toString();
+        return skobochki(this.getPriority() <= first.getPriority(), first.toMiniString()) + " " +
+                operation + " " + skobochki(this.getPriority() < second.getPriority() ||
+                (this.assoc && second.getRightAssoc() && this.getPriority() <= second.getPriority()),
+                second.toMiniString());
     }
 }
