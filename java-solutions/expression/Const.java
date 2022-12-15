@@ -6,7 +6,7 @@ public class Const implements Express {
     }
     @Override
     public int getPriority() {
-        return 2;
+        return 4;
     }
     @Override
     public boolean getAssoc() {
