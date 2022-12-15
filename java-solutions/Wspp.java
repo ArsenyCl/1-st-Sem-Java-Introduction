@@ -1,9 +1,10 @@
+import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
-import java.io.File;
-import java.io.BufferedWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Wspp {
     public static void main(String[] args) {
@@ -24,7 +25,7 @@ public class Wspp {
                 }
                 BufferedWriter writer = new BufferedWriter(new FileWriter(args[1], StandardCharsets.UTF_8));
                 try {
-                    for (String word: order) {
+                    for (String word : order) {
                         writer.write(word + " " + words.get(word).size());
                         for (int i = 0; i < words.get(word).size(); i++) {
                             writer.write(" " + words.get(word).get(i));
@@ -38,7 +39,7 @@ public class Wspp {
                 text.close();
             }
 
-        } catch(IOException e) {
+        } catch (IOException e) {
             System.out.println(e.getLocalizedMessage());
         }
     }

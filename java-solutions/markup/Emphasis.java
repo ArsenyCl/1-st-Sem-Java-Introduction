@@ -1,7 +1,7 @@
 package markup;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Emphasis extends Markdown {
     public Emphasis(List<ACMarkup> in) {

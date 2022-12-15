@@ -11,6 +11,7 @@ public abstract class Markdown implements ACMarkup {
     public Markdown(List<ACMarkup> in) {
         field = new ArrayList(in);
     }
+
     @Override
     public void toMarkdown(StringBuilder textBuilder) {
         textBuilder.append(mark);
@@ -19,12 +20,13 @@ public abstract class Markdown implements ACMarkup {
         }
         textBuilder.append(mark);
     }
+
     @Override
-    public void toTex(StringBuilder textBuilder){
+    public void toTex(StringBuilder textBuilder) {
         textBuilder.append(texMark);
-            for (ACMarkup each : field) {
-                each.toTex(textBuilder);
-            }
+        for (ACMarkup each : field) {
+            each.toTex(textBuilder);
+        }
         textBuilder.append("}");
     }
 }

@@ -1,6 +1,5 @@
 import java.io.*;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 
 public class ACScanner {
     private final Reader reader;
@@ -55,7 +54,7 @@ public class ACScanner {
             if (cbufSize == bufferSize) {
                 cbufSize = reader.read(cbuf);
                 lastIndex = 0;
-            } else if(!newLine.isEmpty()){
+            } else if (!newLine.isEmpty()) {
                 return newLine.toString();
             }
         }
@@ -68,8 +67,9 @@ public class ACScanner {
     private boolean antiCopyPaste(String parametor) {
         return switch (parametor) {
             case "digit" -> Character.isDigit(cbuf[lineIterator]) || cbuf[lineIterator] == '-';
-            case "word" -> Character.isLetter(cbuf[lineIterator]) || Character.getType(cbuf[lineIterator]) == Character.DASH_PUNCTUATION ||
-                cbuf[lineIterator] == 39;
+            case "word" ->
+                    Character.isLetter(cbuf[lineIterator]) || Character.getType(cbuf[lineIterator]) == Character.DASH_PUNCTUATION ||
+                            cbuf[lineIterator] == 39;
             case "next" -> !Character.isWhitespace(cbuf[lineIterator]);
             default -> false;
         };
@@ -169,6 +169,7 @@ public class ACScanner {
         }
         return !newNext.isEmpty();
     }
+
     private boolean privateFoundNewLine(char symbol) {
         if (symbol == '\r') {
             lastCharIsR = true;
@@ -184,6 +185,7 @@ public class ACScanner {
             return false;
         }
     }
+
     public void close() throws IOException {
         reader.close();
     }

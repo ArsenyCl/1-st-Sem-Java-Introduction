@@ -6,36 +6,39 @@ import java.util.ArrayList;
 public class Game {
     ArrayList<PlayerInfo> players;
     private final PrintStream out = System.out;
+
     public Game(ArrayList<PlayerInfo> players) {
         this.players = players;
     }
+
     public int play(BoardMNK board) {
         out.println("Current position");
         out.println(board);
         out.println();
         int playersLeft = players.size();
-        main: while (true) {
+        main:
+        while (true) {
             for (int i = 0; i < players.size(); i++) {
-                if(players.get(i).isAlive()) {
+                if (players.get(i).isAlive()) {
                     int result = move(board, players.get(i));
                     if (result == 2) {
                         out.println(players.get(i).getName() + " won! Congratulations!");
                         out.println("Current position");
                         out.println(board);
                         return i;
-                    } else if(result == 0) {
+                    } else if (result == 0) {
                         out.println("Draw! No winners, no losers!");
                         out.println("Current position");
                         out.println(board);
                         return -1;
                     } else if (result == 3) {
-                        out.println("Strike! " + players.get(i).getName() + "'s turn again!" );
+                        out.println("Strike! " + players.get(i).getName() + "'s turn again!");
                         out.println("Current position");
                         out.println(board);
                         out.println();
                         i--;
                         continue;
-                    } else if(result == -1) {
+                    } else if (result == -1) {
                         out.println("Unfortunately " + players.get(i).getName() + " leaves the game. GG!");
                         players.get(i).lost();
                         playersLeft--;
@@ -56,6 +59,7 @@ public class Game {
             }
         }
     }
+
     public int move(final BoardMNK board, final PlayerInfo player) {
         try {
             Move move = player.getPlayer().move(board.getBoard(), player.getCell(), player.getName());

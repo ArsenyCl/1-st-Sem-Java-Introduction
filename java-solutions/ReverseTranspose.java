@@ -1,5 +1,5 @@
-import java.util.Scanner;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class ReverseTranspose {
     private static String[][] multiArray(String[][] a) {
@@ -11,6 +11,7 @@ public class ReverseTranspose {
         int[] b = Arrays.copyOf(a, a.length * 2);
         return b;
     }
+
     private static String[] multStr(String[] a) {
         String[] b = Arrays.copyOf(a, a.length * 2);
         return b;

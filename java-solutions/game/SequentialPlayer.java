@@ -5,6 +5,7 @@ import java.io.PrintStream;
 
 public class SequentialPlayer implements Player {
     private final PrintStream out = System.out;
+
     @Override
     public Move move(final Board board, final Cell cell, final String name) {
         for (int r = 0; r < board.getN(); r++) {

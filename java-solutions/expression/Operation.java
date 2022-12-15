@@ -4,6 +4,7 @@ public class Operation {
     private final String type;
     private final boolean associative;
     private final boolean rightAssociative;
+
     protected Operation(String type, boolean associative, boolean rightAssociative) {
         this.associative = associative;
         this.rightAssociative = rightAssociative;

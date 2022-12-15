@@ -1,7 +1,10 @@
 package game;
 
 import java.io.PrintStream;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Scanner;
 
 public class Tournament {
     private static final char[] symbolsToChoose = new char[]{'X', 'O', '+', '/'};
@@ -13,10 +16,12 @@ public class Tournament {
     public Tournament(int games) {
         tournament(games);
     }
+
     private void changeOrder(ArrayList<PlayerInfo> players) {
         players.add(players.get(0));
         players.remove(0);
     }
+
     private void tournament(int games) {
         if (games > 1) {
             games = intInput("How many wins you want to reach: ");
@@ -25,7 +30,7 @@ public class Tournament {
             int max = 0;
             int i = 0;
             while (max < games) {
-                out.println("Game №" + (i+1));
+                out.println("Game №" + (i + 1));
                 out.println();
                 Game game = new Game((ArrayList<PlayerInfo>) players.clone());
                 BoardMNK board = boardSettings();
@@ -54,6 +59,7 @@ public class Tournament {
             game.play(board);
         }
     }
+
     private ArrayList<PlayerInfo> gameSettings() {
         BoardMNK.SYMBOLS = new HashMap<>();
         BoardMNK.SYMBOLS.put(Cell.E, '.');
@@ -65,6 +71,7 @@ public class Tournament {
         }
         return players;
     }
+
     private PlayerInfo playerSettings(int i) {
         Player player;
         while (true) {
@@ -73,7 +80,7 @@ public class Tournament {
             if (typeCheck.equals("1")) {
                 player = new HumanPlayer();
                 break;
-            } else if (typeCheck.equals("2") ) {
+            } else if (typeCheck.equals("2")) {
                 player = new RandomPlayer();
                 break;
             } else if (typeCheck.equals("3")) {
@@ -91,25 +98,26 @@ public class Tournament {
         out.println("Player name accepted.");
         while (true) {
             out.println("Player №" + i + " cell: ");
-            for (int j = 0; j  < symbs.length; j++) {
-                out.println((j+1) +  " - " + symbs[j]);
+            for (int j = 0; j < symbs.length; j++) {
+                out.println((j + 1) + " - " + symbs[j]);
             }
             String cellCheck = in.nextLine();
             if (cellCheck.length() == 1 && Character.isDigit(cellCheck.charAt(0)) && Integer.parseInt(cellCheck) <= symbs.length &&
                     Integer.parseInt(cellCheck) > 0) {
-                BoardMNK.SYMBOLS.put(cells[i-1], symbs[Integer.parseInt(cellCheck)-1]);
-                for(int j = Integer.parseInt(cellCheck); j < symbs.length; j++) {
-                    symbs[j-1] = symbs[j];
+                BoardMNK.SYMBOLS.put(cells[i - 1], symbs[Integer.parseInt(cellCheck) - 1]);
+                for (int j = Integer.parseInt(cellCheck); j < symbs.length; j++) {
+                    symbs[j - 1] = symbs[j];
                 }
-                symbs = Arrays.copyOf(symbs, symbs.length -1);
+                symbs = Arrays.copyOf(symbs, symbs.length - 1);
                 break;
             }
             out.println("Invalid input! Try again");
             out.println();
         }
         out.println("Player cell accepted.");
-        return new PlayerInfo(player, name, cells[i-1]);
+        return new PlayerInfo(player, name, cells[i - 1]);
     }
+
     private BoardMNK boardSettings() {
         out.println("Enter board size");
         int rows = intInput("Rows: ");
@@ -117,6 +125,7 @@ public class Tournament {
         int k = intInput("Cells to win: ");
         return new BoardMNK(cols, rows, k);
     }
+
     private static int intInput(String output) {
         try {
             out.println(output);
@@ -127,14 +136,15 @@ public class Tournament {
             return -1;
         }
     }
+
     private static String strInput(String output) {
-            try {
-                out.println(output);
-                return in.nextLine();
-            } catch (RuntimeException e) {
-                out.println("Invalid input! Try again");
-                out.println();
-                return null;
-            }
+        try {
+            out.println(output);
+            return in.nextLine();
+        } catch (RuntimeException e) {
+            out.println("Invalid input! Try again");
+            out.println();
+            return null;
+        }
     }
 }

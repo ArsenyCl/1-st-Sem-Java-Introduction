@@ -11,7 +11,7 @@ public class SpecialScanner {
     private int cbufSize;
     private boolean lastCharIsR = false;
     private boolean lastCharIsN = false;
-    public  boolean skipLines = false;
+    public boolean skipLines = false;
     private StringBuilder newNext = new StringBuilder(0);
     private int lineIterator = 0;
 
@@ -23,23 +23,27 @@ public class SpecialScanner {
     public SpecialScanner(InputStream in) throws IOException {
         this(new InputStreamReader(in));
     }
+
     public SpecialScanner(File file, Charset charset) throws IOException {
         this(new InputStreamReader(new FileInputStream(file), charset));
     }
+
     private boolean antiCopyPaste(String parametor) {
         if (parametor.equals("Sp")) {
             return (cbuf[lineIterator] == '*' || cbuf[lineIterator] == '-' || cbuf[lineIterator] == '_'
                     || cbuf[lineIterator] == '`' || cbuf[lineIterator] == '#' || cbuf[lineIterator] == '<'
-                    || cbuf[lineIterator] == '>' || cbuf[lineIterator] == '&' || cbuf[lineIterator] == '\\'|| cbuf[lineIterator] == '+');
-        } else if(parametor.equals("newLine")) {
+                    || cbuf[lineIterator] == '>' || cbuf[lineIterator] == '&' || cbuf[lineIterator] == '\\' || cbuf[lineIterator] == '+');
+        } else if (parametor.equals("newLine")) {
             return cbuf[lineIterator] == '\r' || cbuf[lineIterator] == '\n';
         } else {
             return false;
         }
     }
+
     public String next() throws IOException {
         return newNext.toString();
     }
+
     public boolean hasNext() throws IOException {
         newNext.setLength(0);
         boolean special = false;
@@ -47,7 +51,7 @@ public class SpecialScanner {
         boolean newLineCount = false;
         boolean firstSym = true;
         char symChar = '0';
-        skipLines= false;
+        skipLines = false;
         lastCharIsN = false;
         lastCharIsR = false;
         while (true) {
@@ -59,16 +63,16 @@ public class SpecialScanner {
                         lineIterator++;
                     }
                 } else if (!newLineCount && !symb && (symChar == cbuf[lineIterator] || firstSym) && !antiCopyPaste("newLine")
-                        && antiCopyPaste("Sp") ) {
+                        && antiCopyPaste("Sp")) {
                     special = true;
-                    while (firstSym ||(lineIterator < cbufSize && (symChar == cbuf[lineIterator] || symChar == '\\' || (symChar == '#' && cbuf[lineIterator] == ' '))
-                           && !antiCopyPaste("newLine"))) {
+                    while (firstSym || (lineIterator < cbufSize && (symChar == cbuf[lineIterator] || symChar == '\\' || (symChar == '#' && cbuf[lineIterator] == ' '))
+                            && !antiCopyPaste("newLine"))) {
                         firstSym = false;
                         symChar = cbuf[lineIterator];
                         newNext.append(cbuf[lineIterator]);
                         lineIterator++;
                     }
-                } else if (!symb && !special &&  antiCopyPaste("newLine")) {
+                } else if (!symb && !special && antiCopyPaste("newLine")) {
                     newLineCount = true;
                     newNext = new StringBuilder(String.valueOf('\n'));
                     while (lineIterator < cbufSize && antiCopyPaste("newLine")) {
@@ -93,12 +97,13 @@ public class SpecialScanner {
         }
 
     }
+
     private boolean foundDoubleLine(char symbol) {
-        if (lastCharIsN && (symbol == '\n' ||symbol == '\r')) {
+        if (lastCharIsN && (symbol == '\n' || symbol == '\r')) {
             lastCharIsN = false;
             lastCharIsR = false;
             return true;
-        } else if(lastCharIsR && symbol == '\r') {
+        } else if (lastCharIsR && symbol == '\r') {
             lastCharIsR = false;
             return true;
         } else if (symbol == '\n') {
@@ -112,6 +117,7 @@ public class SpecialScanner {
         lastCharIsR = false;
         return false;
     }
+
     public void close() throws IOException {
         reader.close();
     }

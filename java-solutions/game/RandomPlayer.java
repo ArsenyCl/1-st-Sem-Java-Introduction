@@ -6,14 +6,17 @@ import java.util.Random;
 
 public class RandomPlayer implements Player {
     private final Random random;
+
     public RandomPlayer(final Random random) {
         this.random = random;
     }
+
     private final PrintStream out = System.out;
 
     public RandomPlayer() {
         this(new Random());
     }
+
     @Override
     public Move move(final Board board, Cell cell, String name) {
         while (true) {

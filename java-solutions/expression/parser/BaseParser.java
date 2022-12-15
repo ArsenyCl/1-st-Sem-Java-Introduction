@@ -18,6 +18,7 @@ public class BaseParser {
         ch = source.hasNext() ? source.next() : END;
         return result;
     }
+
     protected char curCh() {
         return ch;
     }

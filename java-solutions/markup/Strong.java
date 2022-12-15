@@ -1,7 +1,8 @@
 package markup;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+
 public class Strong extends Markdown {
     public Strong(List<ACMarkup> in) {
         super(in);

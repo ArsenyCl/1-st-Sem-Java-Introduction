@@ -7,14 +7,14 @@ public class SumDouble {
                 int nachalo;
                 if (!Character.isWhitespace(text.charAt(i))) {
                     nachalo = i;
-                    while (i<text.length() && !Character.isWhitespace(text.charAt(i))){
+                    while (i < text.length() && !Character.isWhitespace(text.charAt(i))) {
                         i++;
                     }
                     summa += Double.parseDouble(text.substring(nachalo, i));
                 }
                 i++;
-            }       
+            }
         }
-	System.out.println(summa);
+        System.out.println(summa);
     }
 }

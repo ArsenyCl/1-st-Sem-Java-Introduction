@@ -2,9 +2,10 @@ package game;
 
 public class PlayerInfo {
     private final Player player;
-    private final String  name;
+    private final String name;
     private final Cell cell;
     private boolean alive;
+
     PlayerInfo(Player player, String name, Cell cell) {
         this.player = player;
         this.name = name;
@@ -15,6 +16,7 @@ public class PlayerInfo {
     public Player getPlayer() {
         return player;
     }
+
     public String getName() {
         return name;
     }
@@ -26,6 +28,7 @@ public class PlayerInfo {
     public boolean isAlive() {
         return alive;
     }
+
     public void lost() {
         this.alive = false;
     }

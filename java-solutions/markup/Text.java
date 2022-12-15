@@ -11,6 +11,7 @@ public class Text implements ACMarkup {
     public void toMarkdown(StringBuilder textBuilder) {
         textBuilder.append(field);
     }
+
     public void toTex(StringBuilder textBuild) {
         textBuild.append(field);
     }

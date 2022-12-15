@@ -20,8 +20,9 @@ public class Board implements Position {
         this.k = k;
         this.emptyCells = m * n;
     }
+
     public Board(Board board) {
-        brd  = new Cell[board.getN()][];
+        brd = new Cell[board.getN()][];
         for (int i = 0; i < board.getN(); i++) {
             brd[i] = board.getBrd()[i].clone();
         }
@@ -34,10 +35,12 @@ public class Board implements Position {
     public Cell[][] getBrd() {
         return brd;
     }
+
     @Override
     public void setCell(Move move) {
         brd[move.getRow()][move.getCol()] = move.getCell();
     }
+
     @Override
     public Cell getCell(int row, int col) {
         return brd[row][col];
@@ -58,6 +61,7 @@ public class Board implements Position {
     public int getEmptyCells() {
         return emptyCells;
     }
+
     public void decreaseEmptyCells() {
         emptyCells--;
     }

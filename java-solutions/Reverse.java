@@ -1,7 +1,5 @@
-import java.io.File;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class Reverse {
     private static String[][] multArray(String[][] a) {
@@ -30,7 +28,7 @@ public class Reverse {
                 int digitsSize = 0;
                 while (text.hasNextDigit()) {
                     int n = text.hasFoundNewLines;
-                    while(n > 0) {
+                    while (n > 0) {
                         if (linesSize == lines.length) {
                             indexes = multInt(indexes);
                             lines = multArray(lines);
@@ -66,8 +64,8 @@ public class Reverse {
                     linesSize++;
                     n--;
                 }
-                for (int i = linesSize-1; i >= 0; i--) {
-                    for (int j = indexes[i]-1; j >= 0; j--) {
+                for (int i = linesSize - 1; i >= 0; i--) {
+                    for (int j = indexes[i] - 1; j >= 0; j--) {
                         System.out.print(lines[i][j] + " ");
                     }
                     System.out.print('\n');

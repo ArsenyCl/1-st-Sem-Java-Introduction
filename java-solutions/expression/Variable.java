@@ -4,6 +4,7 @@ import java.util.Objects;
 
 public class Variable implements Express {
     private final String valueString;
+
     public Variable(String valueString) {
         this.valueString = valueString;
     }
@@ -12,14 +13,17 @@ public class Variable implements Express {
     public int evaluate(int variable) {
         return variable;
     }
+
     @Override
     public boolean getAssoc() {
         return true;
     }
+
     @Override
     public boolean getRightAssoc() {
         return true;
     }
+
     @Override
     public int evaluate(int var1, int var2, int var3) {
         if (valueString.equals("x")) {
@@ -30,13 +34,15 @@ public class Variable implements Express {
             return var3;
         }
     }
+
     @Override
     public String toString() {
         return valueString;
     }
+
     @Override
     public boolean equals(Object o) {
-        if (o == null ||  getClass() != o.getClass()) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Variable that = (Variable) o;
         return Objects.equals(this.valueString, that.valueString);
     }
