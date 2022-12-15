@@ -1,5 +1,6 @@
 package expression;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class ExpressOperation {
@@ -13,7 +14,6 @@ public class ExpressOperation {
             "- ", 3,
             "count", 3
     );
-
     public static int getPriority(String str) {
         return operationPriotityMap.getOrDefault(str, -1);
     }
