@@ -2,7 +2,7 @@ package expression;
 
 public class Count extends UnaryOperations{
     public Count(Express value) {
-        super(value, "count", true, true, ExpressOperation.getPriority("count "));
+        super(value, "count", true, true, ExpressOperation.getPriority("count"));
     }
     @Override
     public int func(int a) {
